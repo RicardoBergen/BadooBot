@@ -65,3 +65,17 @@ class DabooBot():
     driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
 
     sleep(2)
+    
+    while True:
+            try:
+                driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[2]/div[1]/div/div').click()
+                sleep(1)
+                pyautogui.write(variables.path + variables.newPic)
+                pyautogui.press('enter')
+                break
+            except:
+                continue
+
+    sleep(1)
+
+    driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[4]/div').click()
