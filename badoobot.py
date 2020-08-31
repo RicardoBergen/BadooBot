@@ -32,7 +32,7 @@ def changeRandomPixel():
     pixels = im.load()
     red = randint(1 , 256)
     green = randint(1 , 256)
-    blue = randint(1 , 256) 
+    blue = randint(1 , 256)
     pixels[randint(1, max_x), randint(1, max_y)] = (red, green, blue, 1)
     im.thumbnail(pic.size)
     im.save(variables.newPic)
@@ -92,9 +92,6 @@ driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]
 
 #sign up
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
-sleep(0.5)
-if not check_exists_by_xpath('phone verify'):
-   exit()
 
 sleep(7.5)
 
@@ -110,6 +107,9 @@ sleep(1)
 uploadPicture(driver)
 sleep(1)
 
+if not check_exists_by_xpath('/html/body/aside/section/div[1]/div/div/section/div/div[2]/div'):
+   sys.exit("require foto verification. exit")
+
 #get started
 driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div/section/div/div[2]/div').click()
 sleep(0.5)
@@ -120,9 +120,11 @@ sleep(0.5)
 driver.find_element_by_xpath('//*[@id="search_form"]/div/div[2]/div/div[1]/div').click()
 
 # like
-while True:
+i = 0
+while i <= 50:
     try:
         driver.find_element_by_xpath('//*[@id="mm_cc"]/div[1]/section/div/div[2]/div/div[2]/div[1]/div[1]').click()
+        i += 1
     except:
         try:
             driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div[3]/i').click()
