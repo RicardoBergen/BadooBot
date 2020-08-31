@@ -74,15 +74,16 @@ driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[
 
 #enter phone number
 driver.find_element_by_xpath('//*[@id="login"]').send_keys(variables.phoneNumber)
+
+#wachtword
 pstring = randomStr(10)
 print("Het wachtword is: " + pstring)
 driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[7]/div[2]/div/input').send_keys(pstring)
-driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]/div/div[2]/div').click()
 
 sleep(2)
 
 #accept cookies
-# driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]/div/div[2]/div').click()
+driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]/div/div[2]/div').click()
 
 # sleep(3)
 
