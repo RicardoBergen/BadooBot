@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException  
 
 import sys
 import os
@@ -18,10 +19,17 @@ class DabooBot():
     def randomStr(N):
         return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
+    def check_exists_by_xpath(xpath):
+        try:
+            driver.find_element_by_xpath(xpath)
+        except NoSuchElementException:
+            return False
+        return True
+
     def changeRandomPixel():
-        originPic = variables.originPic
-        im = Image.open(filename)
-        pic = Image.open(filename)
+        originalPic = variables.originalPic
+        im = Image.open(originalPic)
+        pic = Image.open(originalPic)
         max_x, max_y = pic.size
         pixels = im.load()
         x = random.randrange(max_x)
@@ -33,9 +41,6 @@ class DabooBot():
         im.thumbnail(pic.size)
         im.save(variables.newPic)
         return variables.newPic
-
-    changeRandomPixel()
-    phoneNumber = "0633108175"
 
     driver = webdriver.Chrome(variables.driverpath)
     sleep(1)
@@ -52,7 +57,11 @@ class DabooBot():
 
     driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[4]/div[2]/div/label[1]').click()
 
-    driver.find_element_by_xpath('//*[@id="login"]').send_keys(phoneNumber)
+    driver.find_element_by_xpath('//*[@id="login"]').send_keys(variables.phoneNumber)
     driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[7]/div[2]/div/input').send_keys(randomStr(10))
-    sleep(1)
+    
+    sleep(2)
+    
     driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
+
+    sleep(2)
