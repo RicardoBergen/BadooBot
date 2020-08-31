@@ -59,35 +59,51 @@ sleep(1)
 driver.get("https://badoo.com/signup/")
 sleep(2)
 
+#enter signup info
 driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[1]/div[2]/div/input').send_keys(variables.name)
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[2]/div[2]/div/div[1]/div/div[1]').send_keys("1")
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[2]/div[2]/div/div[2]/div/div[1]').send_keys("J")
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[2]/div[2]/div/div[3]/div/div[1]').send_keys("1")
 
+#select first location
 driver.find_element_by_xpath('//*[@id="location_field"]').click()
 driver.find_element_by_xpath('//*[@id="data-list-location-list"]/li[1]').click()
 
+#select gender
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[4]/div[2]/div/label[1]').click()
 
+#enter phone number
 driver.find_element_by_xpath('//*[@id="login"]').send_keys(variables.phoneNumber)
-driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[7]/div[2]/div/input').send_keys(randomStr(10))
+
+#enter random password
+password = randomStr(10)
+driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[7]/div[2]/div/input').send_keys(password)
 
 sleep(2)
 
+#accept cookies
+driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]/div/div[2]/div').click()
+
+#sign up
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
 
 sleep(2)
 
-# foto
+#upload picture
 uploadPicture(driver)
-
 sleep(1)
-
 driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[4]/div').click()
 
 sleep(1)
 
+#get started
 driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div/section/div/div[2]/div').click()
+sleep(0.5)
+driver.find_element_by_xpath('//*[@id="page"]/div[1]/main/div[2]/div/div/section/div/div[2]/div/div/div[1]/div[1]').click()
+sleep(0.5)
+driver.find_element_by_xpath('//*[@id="page"]/div[1]/main/div[2]/div/div/section/div/div[2]/div/div/div[2]/div[1]').click()
+sleep(0.5)
+driver.find_element_by_xpath('//*[@id="search_form"]/div/div[2]/div/div[1]/div').click()
 
 # swipe
 while True:

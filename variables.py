@@ -1,6 +1,6 @@
 driverpath = r"C:\Users\jordy\downloads\chromedriver_win32\chromedriver.exe"
 name = "bob"
 phoneNumber = "0633108175"
-path = "C:/Users/jordy/source/repos/badooBot/BadooBot/"
+path = "C:\Users\jordy\source\repos\badooBot\BadooBot\"
 originalPic = "picture.png"
 newPic = "randomPicture.png"
