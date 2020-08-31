@@ -30,8 +30,6 @@ def changeRandomPixel():
     pic = Image.open(originalPic)
     max_x, max_y = pic.size
     pixels = im.load()
-    x = random.randrange(max_x)
-    y = random.randrange(max_y)
     red = randint(1 , 256)
     green = randint(1 , 256)
     blue = randint(1 , 256) 
@@ -49,10 +47,18 @@ def uploadPicture(driver):
             sleep(1)
             pyautogui.write(variables.path + variables.newPic)
             pyautogui.press('enter')
+            sleep(1)
+            driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[4]/div').click()
             return True
-        except:
-            print("failed to upload picture. retry")
+        except Exception as e:
+            print(e, "failed to upload picture. retry")
             continue
+
+def randomPhoneNumber():
+    #get random phone number
+    return "0612345678"
+
+phoneNumber = randomPhoneNumber()
 
 driver = webdriver.Chrome(variables.driverpath)
 sleep(1)
@@ -73,7 +79,7 @@ driver.find_element_by_xpath('//*[@id="data-list-location-list"]/li[1]').click()
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[4]/div[2]/div/label[1]').click()
 
 #enter phone number
-driver.find_element_by_xpath('//*[@id="login"]').send_keys(variables.phoneNumber)
+driver.find_element_by_xpath('//*[@id="login"]').send_keys(phoneNumber)
 
 #enter random password
 password = randomStr(10)
@@ -86,14 +92,22 @@ driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]
 
 #sign up
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
+sleep(0.5)
+if not check_exists_by_xpath('phone verify'):
+   exit()
 
-sleep(2)
+sleep(7.5)
+
+#verify phone number
+number = "1234"
+i = 2
+while i <= 5:
+    driver.find_element_by_xpath('//*[@id="simple-page"]/div[3]/div/div/div/section/div/div[3]/div/form/div[1]/div[1]/div/div[' + i + ']/div/input').send_keys(number[i - 2])
+    i += 1
+sleep(1)
 
 #upload picture
 uploadPicture(driver)
-sleep(1)
-driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[4]/div').click()
-
 sleep(1)
 
 #get started
@@ -105,7 +119,7 @@ driver.find_element_by_xpath('//*[@id="page"]/div[1]/main/div[2]/div/div/section
 sleep(0.5)
 driver.find_element_by_xpath('//*[@id="search_form"]/div/div[2]/div/div[1]/div').click()
 
-# swipe
+# like
 while True:
     try:
         driver.find_element_by_xpath('//*[@id="mm_cc"]/div[1]/section/div/div[2]/div/div[2]/div[1]/div[1]').click()
@@ -113,6 +127,6 @@ while True:
         try:
             driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div[3]/i').click()
             sleep(0.5)
-        except:
-            print("couldn't find or click like button")
+        except Exception as e:
+            print(e)
             break
