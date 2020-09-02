@@ -30,8 +30,8 @@ def changeRandomPixel():
     pic = Image.open(originalPic)
     max_x, max_y = pic.size
     pixels = im.load()
-    x = random.randrange(max_x)
-    y = random.randrange(max_y)
+    # x = random.randrange(max_x)
+    # y = random.randrange(max_y)
     red = randint(1 , 256)
     green = randint(1 , 256)
     blue = randint(1 , 256) 
@@ -77,7 +77,9 @@ driver.find_element_by_xpath('//*[@id="login"]').send_keys(variables.phoneNumber
 
 #wachtword
 pstring = randomStr(10)
-print("Het wachtword is: " + pstring)
+f = open("ww.txt", "w")
+f.write(pstring)
+f.close()
 driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/section/div/div/div[1]/form/div[7]/div[2]/div/input').send_keys(pstring)
 
 sleep(2)
@@ -85,7 +87,7 @@ sleep(2)
 #accept cookies
 driver.find_element_by_xpath('//*[@id="page-cookie-notification"]/div/div/div[2]/div/div[2]/div').click()
 
-# sleep(3)
+sleep(1)
 
 #sign up
 driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[8]/button').click()
@@ -97,7 +99,7 @@ uploadPicture(driver)
 sleep(1)
 driver.find_element_by_xpath('//*[@id="simple-page"]/div[2]/section/div[1]/div[4]/div').click()
 
-sleep(1)
+sleep(3)
 
 #get started
 driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div/section/div/div[2]/div').click()
@@ -111,11 +113,50 @@ driver.find_element_by_xpath('//*[@id="search_form"]/div/div[2]/div/div[1]/div')
 # swipe
 while True:
     try:
+        #like button
         driver.find_element_by_xpath('//*[@id="mm_cc"]/div[1]/section/div/div[2]/div/div[2]/div[1]/div[1]').click()
     except:
         try:
             driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div[3]/i').click()
             sleep(0.5)
         except:
-            print("couldn't find or click like button")
-            break
+            try:
+                #want te get notified?
+                driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div/section/div/div/div/div[2]/div').click()
+                sleep(0.5)
+            except:
+                print("couldn't find or click like button")
+                break
+#profiel
+driver.find_element_by_xpath('//*[@id="app_s"]/div/div/div/div[1]/div/div[2]/div/div[1]/div[1]/a/div').click()
+sleep(0.5)
+
+#settings
+driver.find_element_by_xpath('//*[@id="app_c"]/div/div[1]/header/div[2]/div/div[1]/a').click()
+sleep(0.5)
+
+#delete 1
+driver.find_element_by_xpath('//*[@id="app_c"]/div/div[11]/div/div/div/div/div[1]/span').click()
+sleep(0.5)
+
+#delete 2
+driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/form/div/section/div/div/div/div/div[1]/div/div/div[6]/div/label').click()
+#continue 1
+driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/form/div/section/div/div/div/div/div[2]/div/div[2]/div').click()
+sleep(0.5)
+
+#why are you leaving?
+driver.find_element_by_xpath('//*[@id="del_reason_form"]/div/div/div[1]/div/div/div[1]/div/label').click()
+#continue 2
+driver.find_element_by_xpath('//*[@id="del_reason_form"]/div/div/div[2]/div/div[2]/div').click()
+sleep(0.5)
+
+#why 2
+driver.find_element_by_xpath('//*[@id="del_reason_form"]/div/div/div[1]/div/div/div[1]/div/label').click()
+#continue 3
+driver.find_element_by_xpath('//*[@id="del_reason_form"]/div/div/div[3]/div/div[2]/div').click()
+sleep(0.5)
+
+#password
+driver.find_element_by_xpath('//*[@id="password"]').click()
+driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[3]/section/div/div/div[1]/form/div[2]/div[2]/div/div[1]/div/div[1]').send_keys(pstring)
