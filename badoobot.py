@@ -3,6 +3,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException  
 
+import pytesseract
+try:
+    import Image
+except ImportError:
+    from PIL import Image
+from subprocess import check_output
+
+import urllib
 import sys
 import os
 import random
@@ -10,7 +18,6 @@ from random import randint
 import string
 import pyautogui
 from time import sleep
-from PIL import Image
 
 import variables
 
@@ -23,6 +30,10 @@ def check_exists_by_xpath(xpath):
     except NoSuchElementException:
         return False
     return True
+
+def resolveCaptcha():
+    pytesseract.pytesseract.tesseract_cmd = variables.tesseract
+    return pytesseract.image_to_string(Image.open(variables.captcha))
 
 def changeRandomPixel():
     originalPic = variables.originalPic
@@ -57,6 +68,11 @@ def uploadPicture(driver):
 def randomPhoneNumber():
     #get random phone number
     return "0612345678"
+
+
+print(resolveCaptcha())
+sleep(30)
+
 
 phoneNumber = randomPhoneNumber()
 
@@ -129,6 +145,22 @@ while i <= 50:
         try:
             driver.find_element_by_xpath('/html/body/aside/section/div[1]/div/div[3]/i').click()
             sleep(0.5)
+        
         except Exception as e:
             print(e)
             break
+
+
+#solve captcha
+while True:
+    try:
+        urllib.urlretrieve(driver.find_element_by_xpath('//*[@id="check_code_img"]').get_attribute('src'), "captcha.png")
+        driver.find_element_by_xpath('').send_keys(resolveCaptcha())
+        driver.find_element_by_xpath('').click()
+        if (check_exists_by_xpath('//*[@id="check_code_img"]')):
+            continue
+        else:
+            break
+    except:
+        continue
+        

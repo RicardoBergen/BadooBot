@@ -1,6 +1,8 @@
 driverpath = r"C:\Users\jordy\downloads\chromedriver_win32\chromedriver.exe"
+tesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 name = "bob"
 phoneNumber = "0633108175"
 path = "C:\\Users\\jordy\\source\\repos\\badooBot\\BadooBot\\"
 originalPic = "picture.png"
 newPic = "randomPicture.png"
+captcha = "captcha.png"
