@@ -69,11 +69,6 @@ def randomPhoneNumber():
     #get random phone number
     return "0612345678"
 
-
-print(resolveCaptcha())
-sleep(30)
-
-
 phoneNumber = randomPhoneNumber()
 
 driver = webdriver.Chrome(variables.driverpath)
